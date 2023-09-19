@@ -6,4 +6,6 @@ export class Commit {
   public message: string;
 
   public url: string;
+
+  public author: string;
 }

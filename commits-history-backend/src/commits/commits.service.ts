@@ -21,13 +21,14 @@ export class CommitsService {
         date: commit.commit.author.date,
         message: commit.commit.message,
         url: commit.html_url,
+        author: commit.commit.author.name,
       }));
     } catch (error) {
       throw new NotFoundException(JSON.stringify(error.message));
     }
   }
 
-  async findOne(id: number): Promise<Commit> {
+  async findOne(id: string) {
     try {
       const response = await axios.get(
         `https://api.github.com/repos/gonzalogil23/commits-history/commits/${id}`,
@@ -37,6 +38,7 @@ export class CommitsService {
         date: commit.commit.author.date,
         message: commit.commit.message,
         url: commit.html_url,
+        author: commit.commit.author.name,
       };
     } catch (error) {
       throw new NotFoundException(JSON.stringify(error.message));
