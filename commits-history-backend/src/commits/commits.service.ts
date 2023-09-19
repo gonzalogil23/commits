@@ -18,8 +18,9 @@ export class CommitsService {
       const commits = response.data;
       return commits.map((commit) => ({
         id: commit.sha,
-        date: commit.commit.date,
+        date: commit.commit.author.date,
         message: commit.commit.message,
+        url: commit.html_url,
       }));
     } catch (error) {
       throw new NotFoundException(JSON.stringify(error.message));
@@ -31,14 +32,12 @@ export class CommitsService {
       const response = await axios.get(
         `https://api.github.com/repos/gonzalogil23/commits-history/commits/${id}`,
       );
-      if (response.status === 200) {
-        const commit = response.data;
-        return {
-          id: commit.sha,
-          date: commit.commit.date,
-          message: commit.commit.message,
-        };
-      }
+      const commit = response.data;
+      return {
+        date: commit.commit.author.date,
+        message: commit.commit.message,
+        url: commit.html_url,
+      };
     } catch (error) {
       throw new NotFoundException(JSON.stringify(error.message));
     }
