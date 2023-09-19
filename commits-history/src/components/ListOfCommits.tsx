@@ -28,6 +28,7 @@ const ListOfCommits = () => {
               date={commit.date}
               message={commit.message}
               url={commit.url}
+              author={commit.author}
             />
           ))
         : null}
